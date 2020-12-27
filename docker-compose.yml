@@ -1,0 +1,26 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP .NET Core service.
+
+version: '3.4'
+
+services:
+  webapisqlsv1:
+    image: webapisqlsv1
+    container_name: apisqlsv1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5000
+    depends_on: 
+      - db
+  db:
+    image: mssqldb
+    container_name: sqlsv1
+    hostname: db1
+    build: 
+      context: ./db/
+      dockerfile: Dockerfile
+    volumes: 
+      - C:\Docker\SQLServer\DB:/MSSQL  
+    ports: 
+      - 1433:1433
